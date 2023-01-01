@@ -39,12 +39,20 @@ import { filterImageFromURL, deleteLocalFiles } from './util/util';
         .send(`image_url is required`)
     }
 
-    const filePath = await filterImageFromURL(image_url)
-    console.log("error #### filePath")
-    console.log(filePath)
+     await filterImageFromURL(image_url)
+     .then((response)=>{
+      res.status(200).send(response);
+      return deleteLocalFiles([response.toString()])
+     })
+     .catch(e =>{
+      console.log("error #### filePath")
+      console.log(e)
+      return res.status(422).json({
+        status_code:422,
+        error_message:e.message
+      })
+    })
 
-    res.status(200).send(filePath);
-    return deleteLocalFiles([filePath])
 
   })
 
