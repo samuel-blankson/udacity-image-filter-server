@@ -33,16 +33,16 @@ import { filterImageFromURL, deleteLocalFiles } from './util/util';
     let { image_url } = req.query;
     console.log("image_url #### image_url")
     console.log(image_url)
+    let filePath = ''
 
     if (!image_url) {
       return res.status(400)
         .send(`image_url is required`)
     }
 
-     await filterImageFromURL(image_url)
+    await filterImageFromURL(image_url)
      .then((response)=>{
-      res.status(200).sendFile(response);
-      return deleteLocalFiles([response.toString()])
+     return res.status(200).sendFile(response)
      })
      .catch(e =>{
       console.log("error #### filePath")
@@ -51,9 +51,7 @@ import { filterImageFromURL, deleteLocalFiles } from './util/util';
         status_code:422,
         error_message:e.message
       })
-    })
-
-
+    }) 
   })
 
   //! END @TODO1
