@@ -41,8 +41,8 @@ import { filterImageFromURL, deleteLocalFiles } from './util/util';
 
      await filterImageFromURL(image_url)
      .then((response)=>{
-      res.status(200).send(response);
-      return deleteLocalFiles([response.toString()])
+      res.status(200).sendFile(response);
+      return 
      })
      .catch(e =>{
       console.log("error #### filePath")
